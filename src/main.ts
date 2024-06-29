@@ -73,7 +73,7 @@ function niveauAuswahlEnglish () {
     console.log(hard);
   
     //auch hier clickEvent, damit dann die funktion zum fetchen aufgerufen und eingebunden werden kann!
-    easy.addEventListener('click', easyQuizForm);
+    easy.addEventListener('click', easyQuizz);
     // hard.addEventListener('click', niveauAuswahlEnglish);
 
   }
@@ -102,28 +102,28 @@ function niveauAuswahlDeutsch () {
 //? englische einfacheVersion fetchen
 
 
-// function easyQuizz() {
-//   fetch(BASEURL)
-//     .then((response: Response) => {
-//       if (!response.ok) {
-//         throw Error(`${response.status} ${response.statusText}`);
-//       }
-//       return response.json();
-//     })
-//     .then((products: IProduct[]) => {
-//       easyQuizForm(products);
-//       allProducts = products;
-//     });
-// }
+function easyQuizz() {
+  fetch(quizUrl)
+    .then((response: Response) => {
+      if (!response.ok) {
+        throw Error(`${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((questions: IQuiz[]) => {
+      easyQuizForm(questions);
+    });
+}
 
 
 //? engliche funktion damit beim API fetchen wir die englische version haben (rendern was wir holen)
 function easyQuizForm (questions: IQuiz[]){
  // einzelne frage + antwort + ergebnis fetchen  
 const singleQuestionDiv= questions.map((question: IQuiz) => {
+  const divElement = document.createElement("div");
   const frage = document.createElement("h3");
   frage.innerHTML = question.question;
-  mainOutput.appendChild(frage);
+  divElement.appendChild(frage);
 
   const antwotenDiv = document.createElement('div')
   const antwortenArray: string[] = question.answers;
@@ -136,13 +136,40 @@ const singleQuestionDiv= questions.map((question: IQuiz) => {
   
 
   })
-
+  divElement.appendChild(antwotenDiv)
+  return divElement;
 })
-singleQuestionDiv.forEach((product) =>  {
-  return mainOutput.appendChild(product); 
+singleQuestionDiv.forEach((question) => {
+  mainOutput.appendChild(question); 
 });
 }
 
+
+// function easyQuizForm (questions: IQuiz[]){
+//   // einzelne frage + antwort + ergebnis fetchen  
+//  const singleQuestionDiv= questions.map((question: IQuiz) => {
+   
+//    const frage = document.createElement("h3");
+//    frage.innerHTML = question.question;
+//    mainOutput.appendChild(frage);
+ 
+//    const antwotenDiv = document.createElement('div')
+//    const antwortenArray: string[] = question.answers;
+//    console.log(antwortenArray);
+//    antwortenArray.forEach ((antwort,index)=>{
+//      const radioButton = document.createElement('button');
+//      radioButton.value = index.toString();
+//      radioButton.innerHTML = antwort;
+//      antwotenDiv.appendChild(radioButton)
+   
+ 
+//    })
+ 
+//  })
+//  singleQuestionDiv.forEach((question) => {
+//    mainOutput.appendChild(question); 
+//  });
+//  }
 
 
 
