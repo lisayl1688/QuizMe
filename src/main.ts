@@ -24,6 +24,17 @@ const footerOutput = document.getElementById('footerCounterOutput') as HTMLOutpu
 //?API connecten
 const quizUrl = `https://vz-wd-24-01.github.io/typescript-quiz/questions/easy.json`;
 
+let currentQuestion = 0;
+let questionsArray : IQuiz[] = [];
+
+
+function createButton(text: string, onClick: () => void): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.innerHTML = text;
+  button.addEventListener('click', onClick);
+  return button;
+}
+
 //?start button erstellen
 function sprachAuswahl () {
 if (buttonStart) {
@@ -95,10 +106,6 @@ function niveauAuswahlDeutsch () {
 
 }
 
-
-
-
-
 //? englische einfacheVersion fetchen
 
 
@@ -111,65 +118,79 @@ function easyQuizz() {
       return response.json();
     })
     .then((questions: IQuiz[]) => {
-      easyQuizForm(questions);
+      // easyQuizForm(questions);
+      questionsArray = questions;
+      currentQuestion = 0;
+      showNextQuestion();
     });
 }
 
 
 //? engliche funktion damit beim API fetchen wir die englische version haben (rendern was wir holen)
-function easyQuizForm (questions: IQuiz[]){
+// function showNextQuestion (questions: IQuiz[]){
+function showNextQuestion (){
  // einzelne frage + antwort + ergebnis fetchen  
-const singleQuestionDiv= questions.map((question: IQuiz) => {
-  const divElement = document.createElement("div");
-  const frage = document.createElement("h3");
-  frage.innerHTML = question.question;
-  divElement.appendChild(frage);
+  mainOutput.innerHTML = "";
+  console.log("hallo");
+  if (currentQuestion < questionsArray.length) {
+    const question = questionsArray[currentQuestion];
+    const divElement = document.createElement("div");
+    const frage = document.createElement("h3");
+    frage.innerHTML = question.question;
+    divElement.appendChild(frage);
 
-  const antwotenDiv = document.createElement('div')
-  const antwortenArray: string[] = question.answers;
-  console.log(antwortenArray);
-  antwortenArray.forEach ((antwort,index)=>{
-    const radioButton = document.createElement('button');
-    radioButton.value = index.toString();
+    const antwotenDiv = document.createElement('div')
+    const formElement = document.createElement('form');
+
+    const antwortenArray: string[] = question.answers;
+    console.log(antwortenArray);
+    antwortenArray.forEach ((antwort,index)=>{
+      const label = document.createElement('label');
+      const radioButton = document.createElement('input');
+      radioButton.type = 'radio';
+      radioButton.name = 'antwort'
+      radioButton.value = index.toString();
+    // const radioButton = document.createElement('button');
+    // radioButton.value = index.toString();
     radioButton.innerHTML = antwort;
     antwotenDiv.appendChild(radioButton)
-  
+    label.appendChild(radioButton);
+      label.appendChild(document.createTextNode(antwort));
+    formElement.appendChild(label);
+      formElement.appendChild(document.createElement('br'));
+    })
 
-  })
-  divElement.appendChild(antwotenDiv)
-  return divElement;
-})
-singleQuestionDiv.forEach((question) => {
-  mainOutput.appendChild(question); 
-});
+    const weiterButton = createButton("Weiter", () => {
+      const selectedAnswer = formElement.querySelector('input[name="antwort"]:checked') as HTMLInputElement;
+      if (selectedAnswer) {
+        const selectedAnswerValue = Number(selectedAnswer.value); 
+        const correctAnswerIndex = question.correct;
+        currentQuestion++;
+        showNextQuestion();
+        if(selectedAnswerValue === correctAnswerIndex) {
+          // selectedAnswer.style.backgroundColor = "red";
+          console.log("die richtige antw ist eine andere");
+          window.alert(`die richtige antwort ist: ${question.correct}`)
+        }else {
+          window.alert(`Die richtige Antwort ist: ${question.answers[correctAnswerIndex]}`);
+
+        }
+      } else {
+        alert("Bitte wähle eine Antwort.");
+      }
+
+    });
+
+    antwotenDiv.appendChild(formElement);
+    antwotenDiv.appendChild(weiterButton);
+    divElement.appendChild(antwotenDiv);
+    mainOutput.appendChild(divElement);
+  } else {
+    mainOutput.innerHTML = "Quiz abgeschlossen!";
+  }
+
 }
 
-
-// function easyQuizForm (questions: IQuiz[]){
-//   // einzelne frage + antwort + ergebnis fetchen  
-//  const singleQuestionDiv= questions.map((question: IQuiz) => {
-   
-//    const frage = document.createElement("h3");
-//    frage.innerHTML = question.question;
-//    mainOutput.appendChild(frage);
- 
-//    const antwotenDiv = document.createElement('div')
-//    const antwortenArray: string[] = question.answers;
-//    console.log(antwortenArray);
-//    antwortenArray.forEach ((antwort,index)=>{
-//      const radioButton = document.createElement('button');
-//      radioButton.value = index.toString();
-//      radioButton.innerHTML = antwort;
-//      antwotenDiv.appendChild(radioButton)
-   
- 
-//    })
- 
-//  })
-//  singleQuestionDiv.forEach((question) => {
-//    mainOutput.appendChild(question); 
-//  });
-//  }
 
 
 
