@@ -3,6 +3,7 @@ import './style.css'
 
 
 //?html von header connecten
+const fatCatOutput = document.getElementById('fatCatOutput') as HTMLSpanElement;
 const startScreen = document.getElementById('startScreen') as HTMLDivElement;
 const buttonStart = document.getElementById('buttonStart') as HTMLButtonElement;
 //?html von main connecten
@@ -23,6 +24,14 @@ let currentQuestion = 0;
 let questionsArray : IQuiz[] = [];
 let footerCounter = 1;
 let richtigeAntwortenCounter = 0;
+let randomCatsArray :string [] = ["https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/11-1.thumb128.png","https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/12-1.thumb128.png","https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/4-1.thumb128.png","https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/19-1.thumb128.png","https://storage.googleapis.com/sticker-prod/kqwJ6v19HJjYU0HjM0EY/5-1.thumb128.png","https://storage.googleapis.com/sticker-prod/kqwJ6v19HJjYU0HjM0EY/19-1.thumb128.png","https://storage.googleapis.com/sticker-prod/kqwJ6v19HJjYU0HjM0EY/17-1.thumb128.png","https://storage.googleapis.com/sticker-prod/kqwJ6v19HJjYU0HjM0EY/15-1.thumb128.png","https://storage.googleapis.com/sticker-prod/yk1gw1F3SXXhuhoeojFh/7-1.thumb128.png","https://storage.googleapis.com/sticker-prod/yk1gw1F3SXXhuhoeojFh/9-1.thumb128.png","https://storage.googleapis.com/sticker-prod/yk1gw1F3SXXhuhoeojFh/8-1.thumb128.png","https://storage.googleapis.com/sticker-prod/sYyFFO29CwH77KV9VMO9/5-1.thumb128.png","https://storage.googleapis.com/sticker-prod/sYyFFO29CwH77KV9VMO9/9-1.thumb128.png","https://storage.googleapis.com/sticker-prod/xm8zF3JKXL63lEOvb93N/15-1.thumb128.png","https://storage.googleapis.com/sticker-prod/HeBJJvJoUx7vwsJu9ljj/7.thumb128.png","https://storage.googleapis.com/sticker-prod/HeBJJvJoUx7vwsJu9ljj/12.thumb128.png"];
+
+if (fatCatOutput) {
+  console.log("katze");
+  const fatCat = document.createElement("img");
+  fatCat.src = "https://storage.googleapis.com/sticker-prod/kgHeo7s2KiSnkChvbPOO/1.thumb128.png";
+  fatCatOutput.appendChild(fatCat);
+}
 
 function createButton(text: string, onClick: () => void): HTMLButtonElement {
   const button = document.createElement("button");
@@ -36,6 +45,12 @@ function createButton(text: string, onClick: () => void): HTMLButtonElement {
 function sprachAuswahl () {
   if (buttonStart) {
     mainOutput.innerHTML = "";
+    const catCalculatingDiv = document.createElement('div');
+    catCalculatingDiv.id = "gifs";
+    const catCalculating = document.createElement("img");
+    catCalculating.src = "https://storage.googleapis.com/sticker-prod/kgHeo7s2KiSnkChvbPOO/5.thumb128.png";
+    catCalculatingDiv.appendChild(catCalculating);
+    mainOutput.appendChild(catCalculatingDiv);
     const textParagraph = document.createElement("p");
     textParagraph.id = "pickLanguangeParagraph";
     textParagraph.innerHTML = "Wähle eine Sprache/Pick a language";
@@ -60,6 +75,7 @@ function sprachAuswahl () {
   if(buttonStart){
     // buttonStart.addEventListener('click', sprachAuswahl)
     buttonStart.addEventListener('click',()=>{
+      fatCatOutput.style.display = 'none';
       startScreen.style.display = 'none';
       hauptScreen.style.display = 'block';
       sprachAuswahl();
@@ -70,6 +86,13 @@ function sprachAuswahl () {
 //?englische niveauauswahl erstellen
 function niveauAuswahlEnglish () {
     mainOutput.innerHTML = "";
+    const catEnglishDiv = document.createElement('div');
+    catEnglishDiv.id = "gifs";
+    const catEnglish = document.createElement("img");
+    catEnglish.src = "https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/3-1.thumb128.png";
+    catEnglish.style.width = "46%";
+    catEnglishDiv.appendChild(catEnglish);
+    mainOutput.appendChild(catEnglishDiv);
     const textParagraphEnglish = document.createElement("p");
     textParagraphEnglish.id = "niveauAuswahlParagraph";
     textParagraphEnglish.innerHTML = "Pick a level";
@@ -96,6 +119,13 @@ function niveauAuswahlEnglish () {
 //?deutsche niveauauswahl ersztellen
 function niveauAuswahlDeutsch () {
   mainOutput.innerHTML = "";
+  const catDeutschDiv = document.createElement('div');
+  catDeutschDiv.id = "gifs";
+  const catDeutsch = document.createElement("img");
+  catDeutsch.src = "https://storage.googleapis.com/sticker-prod/4idOSOjea1dwJkEaipU7/2-1.thumb128.png";
+  catDeutsch.style.width = "46%";
+  catDeutschDiv.appendChild(catDeutsch);
+  mainOutput.appendChild(catDeutschDiv);
   const textParagraphDeutsch = document.createElement("p");
   textParagraphDeutsch.id = "niveauAuswahlParagraph";
   textParagraphDeutsch.innerHTML = "Wähle ein Niveau";
@@ -192,13 +222,22 @@ function showNextQuestion (){
  // einzelne frage + antwort + ergebnis fetchen
   mainOutput.innerHTML = "";
   console.log("hallo");
+
   if (currentQuestion < questionsArray.length) {
+    const randomCatsDiv = document.createElement('div');
+    randomCatsDiv.id = "gifs";
+    const randomCat = document.createElement("img");
+    const randomCatIndex = Math.floor(Math.random() * randomCatsArray.length);
+    randomCat.src = randomCatsArray[randomCatIndex];
+    randomCatsDiv.appendChild(randomCat);
+    mainOutput.appendChild(randomCatsDiv);
     const question = questionsArray[currentQuestion];
     const divElement = document.createElement("div");
     const frage = document.createElement("h3");
     frage.id = "frage";
     frage.innerHTML = question.question;
     divElement.appendChild(frage);
+
 
     const antwotenDiv = document.createElement('div')
     antwotenDiv.id = "antwortenDiv";
@@ -228,12 +267,10 @@ function showNextQuestion (){
         const selectedAnswerValue = Number(selectedAnswer.value);
         const correctAnswerIndex = question.correct;
         currentQuestion++;
+       
         showNextQuestion();
         if(selectedAnswerValue === correctAnswerIndex) {
-          // selectedAnswer.style.backgroundColor = "red";
-          // console.log("die richtige antw ist eine andere");
           richtigeAntwortenCounter ++;
-          // window.alert(`die richtige antwort ist: ${question.correct}`)
         }else {
           window.alert(`Die richtige Antwort ist: ${question.answers[correctAnswerIndex]}`);
 
@@ -248,6 +285,7 @@ function showNextQuestion (){
         console.log(footerCounter);
         footerCounter++;
         const counter = document.createElement('p')
+        counter.id = "Counter";
         counter.innerHTML = `${footerCounter} von  ${questionsArray.length}`;
         footerOutput.appendChild(counter);
         if(footerCounter>questionsArray.length) {
@@ -264,6 +302,21 @@ function showNextQuestion (){
     mainOutput.appendChild(divElement);
   } else {
     mainOutput.innerHTML = `Quiz abgeschlossen! Du hast ${richtigeAntwortenCounter} von  ${questionsArray.length} richtig!`;
+    if(richtigeAntwortenCounter>=(questionsArray.length/2)){
+      const proudCatDiv = document.createElement('div');
+      proudCatDiv.id = "gifs";
+      const proudCat = document.createElement("img");
+      proudCat.src = "https://storage.googleapis.com/sticker-prod/sYyFFO29CwH77KV9VMO9/1-1.thumb128.png";
+      proudCatDiv.appendChild(proudCat);
+      mainOutput.appendChild(proudCatDiv);
+    }else {
+      const desperateCatDiv = document.createElement('div');
+      desperateCatDiv.id = "gifs";
+      const desperateCat = document.createElement("img");
+      desperateCat.src = "https://storage.googleapis.com/sticker-prod/sYyFFO29CwH77KV9VMO9/19-1.thumb128.png";
+      desperateCatDiv.appendChild(desperateCat);
+      mainOutput.appendChild(desperateCatDiv);
+    }
     const reloadButton = createButton("Try again!/Versuchs erneut!", () => {
       location.reload();
     });

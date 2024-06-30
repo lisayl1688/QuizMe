@@ -11,14 +11,26 @@
   font-family: FiraMono-Regular;
   src: url(./assets/fonts/FiraMono-Regular.ttf);
 }
+
+#mainOutput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+  height: 31rem;
+}
+
 body {
   background-image: url(./assets/img/timothy-cuenat-NH0pmKaZeuk-unsplash.jpg);
   background-size: cover;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+  gap: 5%;
 }
 
 #buttons ,#buttonStart {
@@ -26,7 +38,7 @@ body {
   background-color: rgba(14, 14, 39, 0.905);  
   border-radius: 25px;
   width: 50%;
-  height: 10%;
+  height: 40px;
 }
 
 header #startScreen{
@@ -63,16 +75,19 @@ main {
   align-items: center;
   border: solid 2px rgb(118 108 162);
   border-radius: 15px;
-  width: 20rem;
-  height: 30rem;
+  /* width: 20rem;
+  height: 32rem; */
+  width: 35rem;
+  height: 33rem;
   justify-content: space-around;
   background-color: rgba(14, 14, 39, 0.905);
 }
 #pickLanguangeParagraph,#niveauAuswahlParagraph, #frage {
   padding: 5%;
   text-align: center;
-  margin-top: 50%;
+  /* margin-top: 50%; */
   font-size: 20px;
+  width: 35rem;
 }
 #deutschButton, #englishButton, #easyButton, #hardButton {
   margin-bottom: 10%;
@@ -87,12 +102,22 @@ main {
   padding: 0% 20%;
   text-align: start;
   font-size: 16px;
-  border: solid 2px rgb(118 108 162);
   display: flex;
   flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 
+
+#Counter {
+  border: solid 2px rgb(170, 158, 221);
+  background-color: rgba(14, 14, 39, 0.905);  
+  border-radius: 25px;
+  width: 7em;
+  height: 25px;
+  text-align: center;
+}
 
 
 
