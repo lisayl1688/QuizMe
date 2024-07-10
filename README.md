@@ -1,4 +1,3 @@
-
 # Quiz Application
 
 ## Overview
@@ -37,6 +36,9 @@ This application allows users to take a quiz in either English or German, with e
 ## Installation
 1. **Download/Clone the Repository.**
 2. **Open the HTML File** in a web browser to use the application.
+
+## Live Demo
+Try the quiz live: [QuizMe](https://lisayl1688.github.io/QuizMe/)
 
 ## License
 Licensed under the MIT License.
