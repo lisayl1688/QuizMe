@@ -1,5 +1,7 @@
 # Quiz Application
 
+> ![Example screenshot]()
+
 ## Overview
 This application allows users to take a quiz in either English or German, with easy and hard levels, and enjoy random cat images throughout the quiz.
 
