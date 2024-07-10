@@ -1,6 +1,6 @@
 # Quiz Application
 
-> ![Example screenshot]()
+> ![Example screenshot](./src/assets/img/Preview_QuizMe.png)
 
 ## Overview
 This application allows users to take a quiz in either English or German, with easy and hard levels, and enjoy random cat images throughout the quiz.
